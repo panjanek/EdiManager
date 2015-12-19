@@ -111,9 +111,9 @@ namespace EdiManager
             {
                 Console.WriteLine("EdiManager by Maciej Siekierski");
                 Console.WriteLine("Sends commands and receives data from Edimax WiFi plugs and IP cameras using");
-                Console.WriteLine("Edimax cloud service. Using EdiCtrl does not require being at the same network");
+                Console.WriteLine("Edimax cloud service. Using EdiManager does not require being at the same network");
                 Console.WriteLine("as the device nor to configure router port forwarding. Edimax plugs and cameras");
-                Console.WriteLine("maintain connection to the cloud servers using undocummented protocol. EdiCtrl");
+                Console.WriteLine("maintain connection to the cloud servers using undocummented protocol. EdiManager");
                 Console.WriteLine("uses this protocol to control Edimax devices using device ID and password only.");  
                 Console.WriteLine("Usage:");
                 Console.WriteLine();
