@@ -67,3 +67,9 @@ Switching EdiPlug example:
 Downloading camera snapshot example:
         EdiManager.exe 74DA38XXXXXX image -p 1234 -m snapshot.jpg
 ```
+
+
+# Notes
+
+- Works with Mono
+- Hints form here http://blog.guntram.de/?p=37 used for deobfuscation code
