@@ -109,7 +109,7 @@ namespace EdiManager
 
             if (showHelp || extra.Count == 0 || extra.Count > 2)
             {
-                Console.WriteLine("EdiManager by Maciej Siekierski");
+                Console.WriteLine("EdiManager by Maciej Siekierski    https://github.com/panjanek/EdiManager.git");
                 Console.WriteLine("Sends commands and receives data from Edimax WiFi plugs and IP cameras using");
                 Console.WriteLine("Edimax cloud service. Using EdiManager does not require being at the same network");
                 Console.WriteLine("as the device nor to configure router port forwarding. Edimax plugs and cameras");
