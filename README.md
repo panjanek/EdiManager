@@ -5,7 +5,7 @@ Command line utility for controlling Edimax plugs and cameras remotely through E
 Sends commands and receives data from Edimax WiFi plugs and IP cameras using Edimax cloud service. Using EdiManager does not require being at the same network as the device nor to configure router port forwarding. Edimax plugs and cameras maintain connection to the cloud servers using undocummented protocol. EdiManager uses this protocol to control Edimax devices. Device id identified by Device ID (MAC address on a sticker). Access is authenticated with password.
 
 # Usage
-
+```
            EdiManager.exe DeviceId [Command] [Options]
 
 DeviceId : Device Identifier, typically MAC address printed on sticker
@@ -66,3 +66,4 @@ Switching EdiPlug example:
         EdiManager.exe 74DA38XXXXXX toggle -p 1234
 Downloading camera snapshot example:
         EdiManager.exe 74DA38XXXXXX image -p 1234 -m snapshot.jpg
+```
