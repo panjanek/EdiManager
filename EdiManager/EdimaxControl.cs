@@ -488,6 +488,7 @@ namespace EdiManager
             string auth = EdimaxUtils.GetMD5(string.Format("admin:{0}", password));
             long unixTimestamp = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalMilliseconds;
             string checkStr = checkStr = string.Format(UdpRequestCmd, deviceId, auth, unixTimestamp);
+            Output.Data(">>", checkStr);
             //checkStr = string.Format("<param><code value=\"2030\" /><id value=\"{0}\" /><lanip value=\"192.168.1.2\" /><lanport value=\"53321\" /><nattype value=\"0\" /><reqdirport value=\"0\" /><reqfwver value=\"1.3.4.a#020100\" /><relayid value=\"{0}{1}\" /></param>", deviceId, unixTimestamp);
             byte[] request = EdimaxUtils.Encrypt(checkStr, 7);
             Output.Log(2, "Sending UDP request to {0}:{1} for device {2} with pass {3}", destination.Address.ToString(), destination.Port, deviceId, password);
@@ -502,6 +503,7 @@ namespace EdiManager
             Output.Data("<<", response);
             int r;
             string decrypted = EdimaxUtils.Decrypt(response, out r);
+            Output.Data("<<", decrypted);
             return decrypted;
         }
     }
