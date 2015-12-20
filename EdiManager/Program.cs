@@ -111,8 +111,8 @@ namespace EdiManager
             {
                 Console.WriteLine("EdiManager by Maciej Siekierski    https://github.com/panjanek/EdiManager.git");
                 Console.WriteLine("Sends commands and receives data from Edimax WiFi plugs and IP cameras using");
-                Console.WriteLine("Edimax cloud service. Using EdiManager does not require being at the same network");
-                Console.WriteLine("as the device nor to configure router port forwarding. Edimax plugs and cameras");
+                Console.WriteLine("Edimax cloud service. Using EdiManager does not require being in the same network");
+                Console.WriteLine("as the device nor configuring router port forwarding. Edimax plugs and cameras");
                 Console.WriteLine("maintain connection to the cloud servers using undocummented protocol. EdiManager");
                 Console.WriteLine("uses this protocol to control Edimax devices using device ID and password only.");  
                 Console.WriteLine("Usage:");
@@ -138,7 +138,7 @@ namespace EdiManager
                                   "                             through local TCP port. As a default web interface\n"+
                                   "                             will be available at localhost:9999.\n"+
                                   "                             Other port can be stecified with -w\n" +
-                                  "           Commands appllicable for any device:\n"+
+                                  "           Commands applicable for any device:\n" +
                                   "               probe         Perform UDP probing only (checks if the device\n"+
                                   "                             is online)");
                 Console.WriteLine("Options:");

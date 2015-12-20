@@ -2,7 +2,7 @@
 Command line utility for controlling Edimax plugs and cameras remotely through Edimax cloud service.
 
 # How it works
-Sends commands and receives data from Edimax WiFi plugs and IP cameras using Edimax cloud service. Using EdiManager does not require being at the same network as the device nor to configure router port forwarding. Edimax plugs and cameras maintain connection to the cloud servers using undocummented protocol. EdiManager uses this protocol to control Edimax devices. Device id identified by Device ID (MAC address on a sticker). Access is authenticated with password.
+Sends commands and receives data from Edimax WiFi plugs and IP cameras using Edimax cloud service. Using EdiManager does not require being in the same network as the device nor configuring router port forwarding. Edimax plugs and cameras maintain connection to the cloud servers using undocummented protocol. EdiManager uses this protocol to control Edimax devices. Device id identified by Device ID (MAC address on a sticker). Access is authenticated with password.
 
 # Usage
 ```
@@ -27,7 +27,7 @@ Command  : Commmand executed on device. If no command is provided, default
                              through local TCP port. As a default web interface
                              will be available at localhost:9999.
                              Other port can be stecified with -w
-           Commands appllicable for any device:
+           Commands applicable for any device:
                probe         Perform UDP probing only (checks if the device
                              is online)
 Options:
