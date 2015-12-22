@@ -41,9 +41,6 @@ namespace EdiManager
                       password = p;
                   }
                 },
-                { "w|webport=", "Local TCP port to use when executing 'web' command. Default port is 9999.",
-                  v => { ParseIntOption(v, "w", out EdimaxControl.LocalWebPort); localWebPortSet = true; }
-                },
                 { "v|verbose",  "Show more status messages. More -v means more messages", 
                   v => ++verbosity  
                 },
@@ -124,6 +121,21 @@ namespace EdiManager
                             outputFile = extra[2];
                         }
                     }
+                    else if (command == EdimaxCommand.Web)
+                    {
+                        if (extra.Count >= 3)
+                        {
+                            try
+                            {
+                                ParseIntOption(extra[2], "port", out EdimaxControl.LocalWebPort);
+                            } 
+                            catch (Exception parseEx)
+                            {
+                                Console.WriteLine(parseEx.Message);
+                                return;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -154,10 +166,11 @@ namespace EdiManager
                                   "                             name fn. If fn is not specified the\n"+
                                   "                             default name name will be used:\n"+
                                   "                             <DeviceId>_<DateTime>.jpg\n"+
-                                  "               web           Setup HTTP proxy to access camera web interface\n"+
-                                  "                             through local TCP port. As a default web interface\n"+
-                                  "                             will be available at localhost:9999.\n"+
-                                  "                             Other port can be stecified with -w\n" +
+                                  "               web [port]    Setup HTTP tunnel to access camera web\n"+
+                                  "                             interface through local TCP port. If no port\n" +
+                                  "                             is specified default 9999 port will be used\n" +
+                                  "                             and web interface will be available at\n" +
+                                  "                             http://localhost:9999\n" +
                                   "           Commands applicable for any device:\n" +
                                   "               probe         Perform UDP probing only (checks if the device\n"+
                                   "                             is online)");
