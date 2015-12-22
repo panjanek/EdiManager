@@ -56,10 +56,10 @@ namespace EdiManager
                 { "u|udptimeout=", "Timeout for receiving UDP data from Edimax cloud [ms]. Default is 10000",
                   v => ParseIntOption(v, "u", out EdimaxControl.UdpTimeoutMillis)
                 },
-                { "r|tcpretries=", "Number of retries after TCP connection breaks. Defauilt is 10",
+                { "r|tcpretries=", "Number of retries after TCP connection breaks. Default is 10",
                   v => ParseIntOption(v, "r", out EdimaxControl.TcpMaxRetries)
                 },
-                { "R|udpretries=", "Number of retries after TCP connection breaks. Default is 10",
+                { "R|udpretries=", "Number of retries after UDP connection breaks. Default is 10",
                   v => ParseIntOption(v, "R", out EdimaxControl.UdpMaxRetries)
                 },
                 { "i|interval=", "Time interval between retrying connections [ms]. Default is 500",

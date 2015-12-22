@@ -23,18 +23,17 @@ Command  : Commmand executed on device. If no command is provided, default
                              name fn. If fn is not specified the
                              default name name will be used:
                              <DeviceId>_<DateTime>.jpg
-               web           Setup HTTP proxy to access camera web interface
-                             through local TCP port. As a default web interface
-                             will be available at localhost:9999.
-                             Other port can be specified with -w
+               web [port]    Setup HTTP tunnel to access camera web
+                             interface through local TCP port. If no port
+                             is specified default 9999 port will be used
+                             and web interface will be available at
+                             http://localhost:9999
            Commands applicable for any device:
                probe         Perform UDP probing only (checks if the device
                              is online)
 Options:
   -p, --password=VALUE       Password for Edimax device. If password is not
                                provided user will be prompted to enter password
-  -w, --webport=VALUE        Local TCP port to use when executing 'web' command.
-                                Default port is 9999.
   -v, --verbose              Show more status messages. More -v means more
                                messages
   -c, --cleartext            Show messages exchanged with cloud in clear text
@@ -46,8 +45,8 @@ Options:
   -u, --udptimeout=VALUE     Timeout for receiving UDP data from Edimax cloud [
                                ms]. Default is 10000
   -r, --tcpretries=VALUE     Number of retries after TCP connection breaks.
-                               Defauilt is 10
-  -R, --udpretries=VALUE     Number of retries after TCP connection breaks.
+                               Default is 10
+  -R, --udpretries=VALUE     Number of retries after UDP connection breaks.
                                Default is 10
   -i, --interval=VALUE       Time interval between retrying connections [ms].
                                Default is 500
