@@ -210,6 +210,7 @@ namespace EdiManager
                             if (disposition == EdimaxCommand.Image)
                             {
                                 string cmd = string.Format(RequestHttpUrlCmd, "/mobile.jpg", auth64);
+                                Output.Log(1, "Sending image request to {0}", deviceId);
                                 TcpSendAndReceiveHttp(tcp, cmd, out headers, out body, out httpStatus, out contentType);
                                 if (httpStatus == "200" && contentType.Contains("image/"))
                                 {                                 
