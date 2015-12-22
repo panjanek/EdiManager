@@ -50,9 +50,9 @@ Options:
                                Default is 10
   -i, --interval=VALUE       Time interval between retrying connections [ms].
                                Default is 500
-  -e, --endpoint=VALUE       Cloud UDP endpoint address used for used for
-                               initiating connection to Edimax cloud. Default
-                               endpoint is www.myedimax.com:8766
+  -e, --endpoint=VALUE       Cloud UDP endpoint address used for initiating
+                               connection to Edimax cloud. Default endpoint is
+                               www.myedimax.com:8766
   -h, --help                 Show this message and exit
 
 Edimanager works with EdiPlugs SP1101W and SP2101W and cameras IC-3116W,

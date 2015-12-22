@@ -65,7 +65,7 @@ namespace EdiManager
                 { "i|interval=", "Time interval between retrying connections [ms]. Default is 500",
                   v => ParseIntOption(v, "i", out EdimaxControl.IntervalMillis)
                 },
-                { "e|endpoint=",  "Cloud UDP endpoint address used for used for initiating connection to Edimax cloud. Default endpoint is www.myedimax.com:8766", 
+                { "e|endpoint=",  "Cloud UDP endpoint address used for initiating connection to Edimax cloud. Default endpoint is www.myedimax.com:8766", 
                   v => {
                       if (v!=null) {
                           string[] split = v.Split(':');
