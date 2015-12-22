@@ -19,8 +19,8 @@ Command  : Commmand executed on device. If no command is provided, default
                power         Get current power consumption
                history       Get power consumption history
            Edimax IP camera commands:
-               image         Get camera snapshot and save to jpg file. Name of
-                             the file can be specified with -m. Otherwise
+               image [fn]    Get camera snapshot and save to jpg file with
+                             name fn. If fn is not specified the
                              default name name will be used:
                              <DeviceId>_<DateTime>.jpg
                web           Setup HTTP proxy to access camera web interface
@@ -33,9 +33,6 @@ Command  : Commmand executed on device. If no command is provided, default
 Options:
   -p, --password=VALUE       Password for Edimax device. If password is not
                                provided user will be prompted to enter password
-  -m, --imagefile=VALUE      Specifies filename where image downloaded from
-                               camera will be saved when executing 'image'
-                               command
   -w, --webport=VALUE        Local TCP port to use when executing 'web' command.
                                 Default port is 9999.
   -v, --verbose              Show more status messages. More -v means more
