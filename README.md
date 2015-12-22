@@ -26,7 +26,7 @@ Command  : Commmand executed on device. If no command is provided, default
                web           Setup HTTP proxy to access camera web interface
                              through local TCP port. As a default web interface
                              will be available at localhost:9999.
-                             Other port can be stecified with -w
+                             Other port can be specified with -w
            Commands applicable for any device:
                probe         Perform UDP probing only (checks if the device
                              is online)
