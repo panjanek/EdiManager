@@ -30,7 +30,6 @@ namespace EdiManager
         {
             string password = null;
             bool showHelp = false;
-            string outputFile = null;
             bool localWebPortSet = false;
             int verbosity = 0;
             string edimaxHost = DefaultEdimaxServer;
@@ -41,12 +40,6 @@ namespace EdiManager
                   p => {
                       password = p;
                   }
-                },
-                { "m|imagefile=", "Specifies filename where image downloaded from camera will be saved when executing 'image' command",
-                  v => outputFile = v
-                },
-                { "w|webport=", "Local TCP port to use when executing 'web' command. Default port is 9999.",
-                  v => { ParseIntOption(v, "w", out EdimaxControl.LocalWebPort); localWebPortSet = true; }
                 },
                 { "v|verbose",  "Show more status messages. More -v means more messages", 
                   v => ++verbosity  
@@ -63,16 +56,16 @@ namespace EdiManager
                 { "u|udptimeout=", "Timeout for receiving UDP data from Edimax cloud [ms]. Default is 10000",
                   v => ParseIntOption(v, "u", out EdimaxControl.UdpTimeoutMillis)
                 },
-                { "r|tcpretries=", "Number of retries after TCP connection breaks. Defauilt is 10",
+                { "r|tcpretries=", "Number of retries after TCP connection breaks. Default is 10",
                   v => ParseIntOption(v, "r", out EdimaxControl.TcpMaxRetries)
                 },
-                { "R|udpretries=", "Number of retries after TCP connection breaks. Default is 10",
+                { "R|udpretries=", "Number of retries after UDP connection breaks. Default is 10",
                   v => ParseIntOption(v, "R", out EdimaxControl.UdpMaxRetries)
                 },
                 { "i|interval=", "Time interval between retrying connections [ms]. Default is 500",
                   v => ParseIntOption(v, "i", out EdimaxControl.IntervalMillis)
                 },
-                { "e|endpoint=",  "Cloud UDP endpoint address used for used for initiating connection to Edimax cloud. Default endpoint is www.myedimax.com:8766", 
+                { "e|endpoint=",  "Cloud UDP endpoint address used for initiating connection to Edimax cloud. Default endpoint is www.myedimax.com:8766", 
                   v => {
                       if (v!=null) {
                           string[] split = v.Split(':');
@@ -107,7 +100,46 @@ namespace EdiManager
                 return;
             }
 
-            if (showHelp || extra.Count == 0 || extra.Count > 2)
+            string outputFile = null;
+            EdimaxCommand command = EdimaxCommand.Probe;
+            string deviceId = null;
+            if (extra.Count >= 1)
+            {
+                deviceId = extra[0].ToUpper();
+                if (extra.Count >= 2)
+                {
+                    if (!Enum.TryParse<EdimaxCommand>(extra[1], true, out command))
+                    {
+                        Output.Error("Value '{0}' not recognized as valid command. Allowed commands: {1}", extra[1], string.Join(",", Enum.GetNames(typeof(EdimaxCommand)).Select(n => n.ToLower())));
+                        return;
+                    }
+
+                    if (command == EdimaxCommand.Image)
+                    {
+                        if (extra.Count >= 3)
+                        {
+                            outputFile = extra[2];
+                        }
+                    }
+                    else if (command == EdimaxCommand.Web)
+                    {
+                        if (extra.Count >= 3)
+                        {
+                            try
+                            {
+                                ParseIntOption(extra[2], "port", out EdimaxControl.LocalWebPort);
+                            } 
+                            catch (Exception parseEx)
+                            {
+                                Console.WriteLine(parseEx.Message);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (showHelp || string.IsNullOrWhiteSpace(deviceId))
             {
                 Console.WriteLine("EdiManager by Maciej Siekierski    https://github.com/panjanek/EdiManager.git");
                 Console.WriteLine("Sends commands and receives data from Edimax WiFi plugs and IP cameras using");
@@ -130,14 +162,15 @@ namespace EdiManager
                                   "               power         Get current power consumption\n" +
                                   "               history       Get power consumption history\n"+
                                   "           Edimax IP camera commands:\n"+
-                                  "               image         Get camera snapshot and save to jpg file. Name of\n"+
-                                  "                             the file can be specified with -m. Otherwise\n"+
+                                  "               image [fn]    Get camera snapshot and save to jpg file with\n"+
+                                  "                             name fn. If fn is not specified the\n"+
                                   "                             default name name will be used:\n"+
                                   "                             <DeviceId>_<DateTime>.jpg\n"+
-                                  "               web           Setup HTTP proxy to access camera web interface\n"+
-                                  "                             through local TCP port. As a default web interface\n"+
-                                  "                             will be available at localhost:9999.\n"+
-                                  "                             Other port can be stecified with -w\n" +
+                                  "               web [port]    Setup HTTP tunnel to access camera web\n"+
+                                  "                             interface through local TCP port. If no port\n" +
+                                  "                             is specified default 9999 port will be used\n" +
+                                  "                             and web interface will be available at\n" +
+                                  "                             http://localhost:9999\n" +
                                   "           Commands applicable for any device:\n" +
                                   "               probe         Perform UDP probing only (checks if the device\n"+
                                   "                             is online)");
@@ -155,17 +188,6 @@ namespace EdiManager
             }
 
             Output.VerbosityLevel = verbosity;
-            string deviceId = extra[0].ToUpper();
-            EdimaxCommand command = EdimaxCommand.Probe;
-            if (extra.Count == 2)
-            {
-                if (!Enum.TryParse<EdimaxCommand>(extra[1], true, out command))
-                {
-                    Output.Error("Value '{0}' not recognized as valid command. Allowed commands: {1}", extra[1], string.Join(",", Enum.GetNames(typeof(EdimaxCommand)).Select(n => n.ToLower())));
-                    return;
-                }
-            }
-
             if (string.IsNullOrWhiteSpace(edimaxIp))
             {
                 Output.Log(2, "Resolving host {0} IP address", edimaxHost);
