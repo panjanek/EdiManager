@@ -50,7 +50,7 @@ Options:
                                ms]. Default is 10000
   -r, --tcpretries=VALUE     Number of retries after TCP connection breaks.
                                Defauilt is 10
-  -R, --udpretries=VALUE     Number of retries after TCP connection breaks.
+  -R, --udpretries=VALUE     Number of retries after UDP connection breaks.
                                Default is 10
   -i, --interval=VALUE       Time interval between retrying connections [ms].
                                Default is 500
