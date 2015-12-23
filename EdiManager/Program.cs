@@ -162,6 +162,7 @@ namespace EdiManager
                                   "               power         Get current power consumption\n" +
                                   "               history       Get power consumption history\n"+
                                   "           Edimax IP camera commands:\n"+
+                                  "               caminfo       Gets camera info\n" +
                                   "               image [fn]    Get camera snapshot and save to jpg file with\n"+
                                   "                             name fn. If fn is not specified the\n"+
                                   "                             default name name will be used:\n"+

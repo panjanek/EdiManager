@@ -184,7 +184,7 @@ namespace EdiManager
                                 }
                             }
                         }
-                        else if (disposition == EdimaxCommand.Image || disposition == EdimaxCommand.Web)
+                        else if (disposition == EdimaxCommand.Image || disposition == EdimaxCommand.Web || disposition == EdimaxCommand.CamInfo)
                         {
                             string headers = null;
                             byte[] body = null;
@@ -207,7 +207,22 @@ namespace EdiManager
                                 return result;
                             }
 
-                            if (disposition == EdimaxCommand.Image)
+                            if (disposition == EdimaxCommand.CamInfo)
+                            {
+                                string cmd = string.Format(RequestHttpUrlCmd, "/camera-cgi/public/getSysteminfo.cgi?action=list&group=SystemInfo", auth64);
+                                Output.Log(1, "Sending info request to {0}", deviceId);
+                                TcpSendAndReceiveHttp(tcp, cmd, out headers, out body, out httpStatus, out contentType);
+                                if (httpStatus == "200" && contentType.Contains("xml"))
+                                {
+                                    var infoDoc = XDocument.Parse(Encoding.UTF8.GetString(body));
+                                    Output.Info(infoDoc.ToString());
+                                }
+                                else if (contentType.Contains("text/"))
+                                {
+                                    Output.Error("Error parsing info respinse. Body:\r\n    {0}", Encoding.UTF8.GetString(body).Replace("\n", "\n    "));
+                                }
+                            }
+                            else  if (disposition == EdimaxCommand.Image)
                             {
                                 string cmd = string.Format(RequestHttpUrlCmd, "/mobile.jpg", auth64);
                                 Output.Log(1, "Sending image request to {0}", deviceId);
@@ -588,6 +603,7 @@ namespace EdiManager
         Power,
         History,
         Image,
-        Web
+        Web,
+        CamInfo
     }
 }
